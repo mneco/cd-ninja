@@ -1,0 +1,10 @@
+[Unit]
+Description=Service to start cd-ninja
+After=network.target
+
+[Service]
+WorkingDirectory=~/projects/cd-ninja
+ExecStart=/usr/bin/node ./dist/index.js
+
+[Install]
+WantedBy=multi-user.target
