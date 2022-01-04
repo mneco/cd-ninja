@@ -1,0 +1,52 @@
+{
+  "name": "cd-ninja",
+  "version": "1.0.0",
+  "description": "CD ninja on TypeScript",
+  "main": "dist/index.js",
+  "private": true,
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "test": "jest",
+    "nodemon": "nodemon",
+    "build": "tsc",
+    "eslint": "eslint",
+    "prettier": "prettier",
+    "repo": "./bin/add-repo.sh",
+    "install": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mneco/cd-ninja.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mneco/cd-ninja/issues"
+  },
+  "homepage": "https://github.com/mneco/cd-ninja#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "netmask": "^2.0.2",
+    "string-sanitizer": "^2.0.2",
+    "underscore": "^1.13.1"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "@types/jest": "^26.0.23",
+    "@types/node": "^17.0.7",
+    "@typescript-eslint/eslint-plugin": "^4.26.1",
+    "@typescript-eslint/parser": "^4.26.1",
+    "eslint": "^7.28.0",
+    "eslint-config-alloy": "^4.1.0",
+    "jest": "^27.0.4",
+    "nodemon": "^2.0.7",
+    "prettier": "^2.3.1",
+    "ts-jest": "^27.0.3",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.2"
+  },
+  "packageManager": "yarn@3.1.1"
+}
