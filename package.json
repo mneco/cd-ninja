@@ -2,7 +2,8 @@
   "name": "cd-ninja",
   "version": "1.0.0",
   "description": "CD ninja on TypeScript",
-  "main": "dist/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "private": true,
   "scripts": {
     "start": "ts-node src/index.ts",
