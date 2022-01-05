@@ -1,4 +1,4 @@
-import { sanitize } from 'string-sanitizer';
+import { sanitize } from 'sanitize-filename-ts';
 import bodyParser from 'body-parser';
 import { exec } from 'child_process';
 import express from 'express';
@@ -52,8 +52,8 @@ app.post('/', (req, res) => {
 		return;
 	}
 
-	const repo = sanitize.addDash(payload.repository.name);
-	const branch = sanitize.addDash(payload.ref.split('/').pop());
+	const repo = sanitize(payload.repository.name);
+	const branch = sanitize(payload.ref.split('/').pop());
 
 	const scriptPath = `${SCRIPTS_PATH}/${repo}-${branch}.sh`;
 	console.log(`Executing task at: ${scriptPath}`);
