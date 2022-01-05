@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 WorkingDirectory=/home/user/cd-ninja
-ExecStart=/usr/bin/node ./dist/index.js
+ExecStart=/usr/bin/node /home/user/cd-ninja/dist/index.js
 
 [Install]
 WantedBy=multi-user.target

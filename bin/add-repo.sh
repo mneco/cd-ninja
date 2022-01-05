@@ -71,6 +71,8 @@ mkdir -p $projectsPath
 cd $projectsPath
 rm -rf $serviceName
 git clone $repo $serviceName
+cd $projectPath
+yarn
 
 cat << EOF > ~/.config/systemd/user/$serviceName.service
 [Unit]
