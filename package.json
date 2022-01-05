@@ -8,7 +8,7 @@
     "start": "ts-node src/index.ts",
     "test": "jest",
     "nodemon": "nodemon",
-    "build": "tsc",
+    "build": "tsc --skipLibCheck",
     "eslint": "eslint",
     "prettier": "prettier",
     "repo": "./bin/add-repo.sh",
