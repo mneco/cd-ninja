@@ -2,7 +2,7 @@
 set -e
 
 { # try
-  cd ~/projects/sample &&
+  cd /home/user/sample &&
   git reset --hard &&
   git pull &&
   yarn &&

@@ -17,9 +17,37 @@ else
         exit 1
 fi
 
-projectPath="~/projects/$codeName"
-scriptPath="./scripts/$codeName-main.sh"
-botUrl="https://api.telegram.org/bot1234/sendMessage?chat_id=1234"
+if [ -f .env ]
+then
+    set -o allexport
+    source .env
+    set +o allexport
+fi
+
+if [[ ! -v DEFAULT_BRANCH ]]
+then
+    DEFAULT_BRANCH="main"
+fi
+serviceName="$codeName-$DEFAULT_BRANCH"
+
+if [[ ! -v SCRIPTS_PATH ]]
+then
+    echo "SCRIPTS_PATH value is not defined in the .env file neither as ENV var"
+fi
+scriptsPath="$(realpath -s $(eval echo $SCRIPTS_PATH))"
+scriptPath="$scriptsPath/$serviceName.sh"
+
+if [[ ! -v PROJECTS_PATH ]]
+then
+    echo "PROJECTS_PATH value is not defined in the .env file neither as ENV var"
+fi
+projectsPath=$(realpath -s $(eval echo $PROJECTS_PATH))
+projectPath="$projectsPath/$serviceName"
+
+if [[ ! -v BOT_URL ]]
+then
+    BOT_URL="https://api.telegram.org/bot1234/sendMessage?chat_id=1234"
+fi
 
 cat << EOF > $scriptPath
 #!/bin/bash
@@ -30,23 +58,23 @@ set -e
     git reset --hard &&
     git pull &&
     yarn &&
-    yarn build-ts &&
-    systemctl --user restart $codeName &&
-    curl '${botUrl}&text=✅ $codeName deployed'
+    yarn build &&
+    systemctl --user restart $serviceName &&
+    curl '${BOT_URL}&text=✅ $serviceName deployed'
 } || { # catch
-    curl '${botUrl}&text=💥 $codeName failed to deploy'
+    curl '${BOT_URL}&text=💥 $serviceName failed to deploy'
 }
 EOF
-chmod +x ./scripts/$codeName-main.sh
+chmod +x $scriptPath
 
-mkdir -p ~/projects
-cd ~/projects
-rm -rf $codeName
-git clone $repo $codeName
+mkdir -p $projectsPath
+cd $projectsPath
+rm -rf $serviceName
+git clone $repo $serviceName
 
-cat << EOF > ~/.config/systemd/user/$codeName.service
+cat << EOF > ~/.config/systemd/user/$serviceName.service
 [Unit]
-Description=Service to start $codeName
+Description=Service to start $serviceName
 After=mongodb.service
 
 [Service]
@@ -59,5 +87,5 @@ RestartSec=3
 WantedBy=multi-user.target
 EOF
 
-systemctl --user enable $codeName
-systemctl --user start $codeName
+systemctl --user enable $serviceName
+systemctl --user start $serviceName

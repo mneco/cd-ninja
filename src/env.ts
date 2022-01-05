@@ -21,4 +21,4 @@ export const GITHUB_IP: string[] = (
 	.split(',')
 	.map(s => s.trim());
 
-export const SCRIPT_PATH: string = process.env.SCRIPT_PATH ?? './scripts';
+export const SCRIPTS_PATH: string = process.env.SCRIPTS_PATH ?? './scripts';

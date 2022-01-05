@@ -3,7 +3,7 @@ Description=Service to start sample Telegram bot
 After=mongodb.service
 
 [Service]
-WorkingDirectory=~/projects/sample
+WorkingDirectory=/home/user/sample
 ExecStart=/usr/bin/yarn distribute
 Restart=always
 RestartSec=3

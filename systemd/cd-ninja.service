@@ -3,7 +3,7 @@ Description=Service to start cd-ninja
 After=network.target
 
 [Service]
-WorkingDirectory=~/projects/cd-ninja
+WorkingDirectory=/home/user/cd-ninja
 ExecStart=/usr/bin/node ./dist/index.js
 
 [Install]

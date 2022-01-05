@@ -4,7 +4,7 @@ import { exec } from 'child_process';
 import express from 'express';
 import { existsSync } from 'fs';
 import http from 'http';
-import { PORT, SCRIPT_PATH } from './env';
+import { PORT, SCRIPTS_PATH } from './env';
 import { inAuthorizedIp } from './utils';
 
 function execScript(scriptPath: string) {
@@ -55,7 +55,7 @@ app.post('/', (req, res) => {
 	const repo = sanitize.addDash(payload.repository.name);
 	const branch = sanitize.addDash(payload.ref.split('/').pop());
 
-	const scriptPath = `${SCRIPT_PATH}/${repo}-${branch}.sh`;
+	const scriptPath = `${SCRIPTS_PATH}/${repo}-${branch}.sh`;
 	console.log(`Executing task at: ${scriptPath}`);
 	execScript(scriptPath);
 

@@ -12,7 +12,7 @@
     "eslint": "eslint",
     "prettier": "prettier",
     "repo": "./bin/add-repo.sh",
-    "install": ""
+    "distribute": "yarn build && node dist/index.js"
   },
   "repository": {
     "type": "git",
