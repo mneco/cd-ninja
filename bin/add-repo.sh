@@ -86,8 +86,9 @@ Restart=always
 RestartSec=3
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
 EOF
 
 systemctl --user enable $serviceName
 systemctl --user start $serviceName
+loginctl enable-linger $USER
