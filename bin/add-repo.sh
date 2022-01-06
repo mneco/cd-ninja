@@ -73,6 +73,7 @@ rm -rf $serviceName
 git clone $repo $serviceName
 cd $projectPath
 yarn
+yarn build
 
 cat << EOF > ~/.config/systemd/user/$serviceName.service
 [Unit]
