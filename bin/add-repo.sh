@@ -82,7 +82,7 @@ After=mongodb.service
 
 [Service]
 WorkingDirectory=$projectPath
-ExecStart=/usr/bin/yarn distribute
+ExecStart=/usr/bin/yarn start
 Restart=always
 RestartSec=3
 
