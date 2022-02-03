@@ -33,6 +33,7 @@ app.post('/', (req, res) => {
 	}
 
 	if (!payload.ref) {
+		console.log('No ref', payload);
 		res.writeHead(200);
 		res.end();
 		return;
@@ -41,8 +42,12 @@ app.post('/', (req, res) => {
 	const repo = sanitize(payload.repository.name);
 	const branch = sanitize(payload.ref.split('/').pop());
 
+	console.log(repo, branch);
+
 	const aliases = getAliases();
 	const names = [repo].concat(aliases.get(repo) ?? []);
+
+	console.log(aliases, names);
 
 	names.forEach(name => {
 		const scriptPath = `${SCRIPTS_PATH}/${name}-${branch}.sh`;
