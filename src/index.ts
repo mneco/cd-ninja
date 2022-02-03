@@ -13,6 +13,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.post('/', (req, res) => {
 	let payload;
 	try {
+		console.log(typeof req.body, req.body);
 		payload = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;
 		if (!payload) {
 			throw new Error('No payload');
