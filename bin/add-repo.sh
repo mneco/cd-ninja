@@ -1,14 +1,16 @@
 #!/bin/bash
 
+regex="^.+\/(\S+?)$"
 if [ $# -eq 2 ]
     then
         repo="$1"
         codeName="$2"
+        [[ "$repo" =~ $regex ]]
+        repoName="${BASH_REMATCH[1]}"
         echo "Whoo" $# $repo $codeName
 
 elif [ $# -eq 1 ]
     then
-        regex="^.+\/(\S+?)$"
         repo="$1"
         [[ "$repo" =~ $regex ]]
         codeName="${BASH_REMATCH[1]}"
@@ -89,6 +91,12 @@ RestartSec=3
 [Install]
 WantedBy=default.target
 EOF
+
+# save alias
+if [[ -v repoName ]]
+    then
+        echo "${codeName},${repoName}" >> .alias
+fi
 
 systemctl --user enable $serviceName
 systemctl --user start $serviceName

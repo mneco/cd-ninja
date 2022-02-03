@@ -1,6 +1,8 @@
 # Scripts
 scripts/*-main.sh
 
+.alias
+
 # Logs
 logs
 *.log

@@ -1,23 +1,9 @@
 import { sanitize } from 'sanitize-filename-ts';
 import bodyParser from 'body-parser';
-import { exec } from 'child_process';
 import express from 'express';
-import { existsSync } from 'fs';
 import http from 'http';
 import { PORT, SCRIPTS_PATH } from './env';
-import { inAuthorizedIp } from './utils';
-
-function execScript(scriptPath: string) {
-	if (!existsSync(scriptPath)) {
-		return;
-	}
-
-	exec(scriptPath, { env: process.env }, error => {
-		if (error !== null) {
-			console.log('exec error: ' + error);
-		}
-	});
-}
+import { inAuthorizedIp, getAliases, execScript } from './utils';
 
 const app = express();
 app.set('port', PORT);
@@ -55,9 +41,14 @@ app.post('/', (req, res) => {
 	const repo = sanitize(payload.repository.name);
 	const branch = sanitize(payload.ref.split('/').pop());
 
-	const scriptPath = `${SCRIPTS_PATH}/${repo}-${branch}.sh`;
-	console.log(`Executing task at: ${scriptPath}`);
-	execScript(scriptPath);
+	const aliases = getAliases();
+	const names = [repo].concat(aliases.get(repo) ?? []);
+
+	names.forEach(name => {
+		const scriptPath = `${SCRIPTS_PATH}/${name}-${branch}.sh`;
+		console.log(`Executing task at: ${scriptPath}`);
+		execScript(scriptPath);
+	});
 
 	res.writeHead(200);
 	res.end();
